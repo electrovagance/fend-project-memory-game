@@ -73,8 +73,7 @@ function addToOpenCards(card) {
     // start comparing the two cards once two cards have been added to the array
     if (openCards.length == 2){
         // change counter
-        counter++;
-        counterDisplay.innerText = counter;
+        incrementCounter();
 
         card1 = openCards[0];
         card2 = openCards[1];
@@ -110,4 +109,9 @@ function matchedCards(card1, card2) {
     console.log('Matched two cards!');
     card1.classList.toggle('match');
     card2.classList.toggle('match');
+}
+
+function incrementCounter(){
+    counter++;
+    counterDisplay.innerText = counter;
 }
