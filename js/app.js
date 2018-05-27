@@ -44,15 +44,38 @@ function shuffle(array) {
 deck.addEventListener('click', function(event) {
 
     // checks if the sibling of deck was clicked (cards) or else do nothing
-    if (event.target.nodeName === 'LI'){
+    if (event.target.nodeName === 'LI') {
         // function call 
         displayCardSymbol(event.target);
-
+        addToOpenCards(event.target);
     }
 
 })
 
-function displayCardSymbol(card){
+function displayCardSymbol(card) {
     card.classList.toggle('show');
 
+}
+
+
+// create array to hold cards
+let openCards = [];
+
+// function which adds two cards to openCards array for comparison
+function addToOpenCards(card) {
+
+    // add passed card to openCards array
+    openCards.push(card);
+
+    if (openCards.length == 2){
+        console.log("two cards clicked!");
+        // check if the card classes match, if they do call function that lock cards
+        if (openCards[0].firstElementChild.classList[1] === openCards[1].firstElementChild.classList[1]) console.log("Match!");
+    }
+
+}
+
+// function that lock two matched cards
+function matchedCards(card1, card2) {
+    
 }
