@@ -164,7 +164,7 @@ function displayFinalScore(num) {
     // TO DO: write code that displays final score
 }
 
-const stars = document.getElementsByClassName("fa-star");
+const stars = document.querySelector(".stars");
 
 function starRating(num) {
     // TO DO: implement rating
@@ -172,7 +172,7 @@ function starRating(num) {
     // 13 tries == two stars
     // 14 or more tries == one star
     if (num == 10  || num == 13) { 
-        stars[0].remove();
+        stars.firstElementChild.remove()
     }
 
 }
@@ -195,6 +195,19 @@ function resetCards() {
     }
 }
 
+function resetCounter() {
+    const addStar = document.createElement('li');
+    addStar.innerHTML = '<i class="fa fa-star"></i>';
+    if (stars.children.length === 1) {
+        for (let i = 0; i < 2; i++) stars.appendChild(addStar);
+    }
+    else if (stars.children.length === 2) {
+        stars.appendChild(addStar);
+    }
+    counter = 0;
+    counterDisplay.innerText = counter + " Moves"
+
+}
 
 // function that lock two matched cards
 function matchedCard(card) {
