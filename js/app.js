@@ -1,7 +1,36 @@
 /*
  * Create a list that holds all of your cards
  */
-const listOfCards = document.getElementsByClassName("card");
+let listOfCards = document.getElementsByClassName("card");
+
+// create array to hold different card classes for shuffle
+let cardArray = [];
+// create array to save shuffled cards
+let newCardArray = [];
+
+shuffleCards();
+
+function shuffleCards() {
+    // loop through listOfCards to save card classes to cardArray
+    for (const card of listOfCards){
+        cardArray.push(card.childNodes[1].classList[1]);
+    }
+
+    // removes classes
+    for (let i = 0; i < cardArray.length; i++) {
+        listOfCards[i].childNodes[1].classList.remove(cardArray[i]);
+   }
+
+    // save returned array in a new variable
+    newCardArray = shuffle(cardArray);
+
+    // removes old class and replaces with new shuffled class
+    for (let i = 0; i < newCardArray.length; i++){
+        listOfCards[i].childNodes[1].classList.add(newCardArray[i]);
+    }
+
+}
+
 
 /*
  * Display the cards on the page
