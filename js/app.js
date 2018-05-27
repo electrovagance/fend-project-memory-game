@@ -65,6 +65,9 @@ counterDisplay.innerText = counter;
 let openCards = [];
 let card1, card2;
 
+// this will be our check for once the game finishes (all cards are flipped and found their match)
+let areAllCardsFlipped = false;
+
 // function which adds two cards to openCards array for comparison
 function addToOpenCards(card) {
     // add passed card to openCards array
@@ -86,9 +89,9 @@ function addToOpenCards(card) {
 
         // if cards don't match, reset the styles and remove the list for next try
         else if (card1.firstElementChild.classList[1] !== card2.firstElementChild.classList[1]) {
+            console.log("don't match!");
             // delay turning cards if they don't match and return to "not-show" state
             setTimeout(function delayReset() {
-                console.log("don't match!");
                 displayCardSymbol(card1);
                 displayCardSymbol(card2);
                 openCards.splice(0, 2);
@@ -97,9 +100,8 @@ function addToOpenCards(card) {
         }
 
         // TODO: implementing card game for them all cards match
-        else {
-            console.log("finished game!");
-        }
+        isGameOver();  
+        if (areAllCardsFlipped) console.log("finished game!");
     }
 
 }
@@ -114,4 +116,22 @@ function matchedCards(card1, card2) {
 function incrementCounter(){
     counter++;
     counterDisplay.innerText = counter;
+}
+
+// checks if all cards are flipped meaning game is over
+function isGameOver(){
+    // counter 
+    let showClassCounter = 0;
+
+    // iterate over listOfCards to check if all cards are matched (should add up to 16)
+    for (const card of listOfCards){
+        if (card.classList.contains('match')) {
+            console.log(card.classList.contains('match'));
+            showClassCounter++;
+        }
+    }
+
+    // set areAllCardsFlipped to true if 16 instances are found
+    // meaning all cards are matched
+    if (showClassCounter === 16) areAllCardsFlipped = true;  
 }
