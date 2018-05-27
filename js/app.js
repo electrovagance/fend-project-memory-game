@@ -5,12 +5,11 @@ let listOfCards = document.getElementsByClassName("card");
 
 // create array to hold different card classes for shuffle
 let cardArray = [];
-// create array to save shuffled cards
-let newCardArray = [];
 
 shuffleCards();
 
 function shuffleCards() {
+    cardArray = [];
     // loop through listOfCards to save card classes to cardArray
     for (const card of listOfCards){
         cardArray.push(card.childNodes[1].classList[1]);
@@ -22,11 +21,11 @@ function shuffleCards() {
    }
 
     // save returned array in a new variable
-    newCardArray = shuffle(cardArray);
+    shuffle(cardArray);
 
     // removes old class and replaces with new shuffled class
-    for (let i = 0; i < newCardArray.length; i++){
-        listOfCards[i].childNodes[1].classList.add(newCardArray[i]);
+    for (let i = 0; i < cardArray.length; i++){
+        listOfCards[i].childNodes[1].classList.add(cardArray[i]);
     }
 
 }
@@ -178,28 +177,24 @@ function starRating(num) {
 
 }
 
-// // get restart button, adds event listener
-// // if restart button is clicked, call function restartGame to restart
-// const restart = document.querySelector(".restart");
+// get restart button, adds event listener
+// if restart button is clicked, call function restartGame to restart
+const restart = document.querySelector(".restart");
 
-// // variable that holds all the matched cards
-// let holdMatchedCardsForReset;
+restart.addEventListener("click", function () {
+    resetCards();
+    resetCounter();
+})
 
-// restart.addEventListener("click", function () {
-//     holdMatchedCardsForReset = deck.getElementsByClassName("match");
-//     if (holdMatchedCardsForReset.length > 1) resetGame();
-// })
+function resetCards() {
+    for (let i = 0; i < listOfCards.length; i++){
+        if (listOfCards[i].classList.contains("match")) matchedCard(listOfCards[i]);
+    }
+    for (let i = 0; i < listOfCards.length; i++) {
+        if (listOfCards[i].classList.contains("show")) displayCardSymbol (listOfCards[i]);
+    }
+}
 
-// function resetGame() {
-//     let numOfMatches = holdMatchedCardsForReset.length;
-//     console.log(numOfMatches);
-//     for (let i = numOfMatches; i >= 0; i--) {
-
-//         matchedCard(holdMatchedCardsForReset[i]);
-//         // console.log(holdMatchedCardsForReset[i].classList);
-//         // displayCardSymbol(holdMatchedCardsForReset[i]);
-//     }
-// }
 
 // function that lock two matched cards
 function matchedCard(card) {
