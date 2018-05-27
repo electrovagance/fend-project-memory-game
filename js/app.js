@@ -99,6 +99,8 @@ function addToOpenCards(card) {
             }, 800);
         }
 
+        starRating(counter);
+        
         // TODO: implementing card game for them all cards match
         isGameOver();  
         if (areAllCardsFlipped) displayFinalScore(counter);
@@ -138,4 +140,18 @@ function isGameOver() {
 function displayFinalScore(num){
     // TO DO: write code that displays final score
     console.log(num);
+}
+
+const stars = document.getElementsByClassName("fa-star");
+
+function starRating(num){
+    // TO DO: implement rating
+    // 10 tries == three stars
+    // 13 tries == two stars
+    // 14 or more tries == one star
+    if (num == 10  || num == 13) { 
+        console.log(stars);
+        stars[0].remove();
+    }
+
 }
