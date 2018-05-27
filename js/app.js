@@ -63,19 +63,24 @@ let openCards = [];
 
 // function which adds two cards to openCards array for comparison
 function addToOpenCards(card) {
-
+    var card1, card2;
     // add passed card to openCards array
     openCards.push(card);
 
     if (openCards.length == 2){
-        console.log("two cards clicked!");
+        card1 = openCards[0];
+        card2 = openCards[1];
         // check if the card classes match, if they do call function that lock cards
-        if (openCards[0].firstElementChild.classList[1] === openCards[1].firstElementChild.classList[1]) console.log("Match!");
+        if (card1.classList[1].firstElementChild === card2.classList[1].firstElementChild) {
+            matchedCards(card1, card2);
+        }
     }
 
 }
 
 // function that lock two matched cards
 function matchedCards(card1, card2) {
-    
+    console.log('Matched two cards!');
+    card1.classList.toggle('match');
+    card2.classList.toggle('match');
 }
