@@ -101,7 +101,7 @@ function addToOpenCards(card) {
 
         // TODO: implementing card game for them all cards match
         isGameOver();  
-        if (areAllCardsFlipped) console.log("finished game!");
+        if (areAllCardsFlipped) displayFinalScore(counter);
     }
 
 }
@@ -126,7 +126,6 @@ function isGameOver() {
     // iterate over listOfCards to check if all cards are matched (should add up to 16)
     for (const card of listOfCards) {
         if (card.classList.contains("match")) {
-            console.log(card.classList.contains("match"));
             showClassCounter++;
         }
     }
@@ -134,4 +133,9 @@ function isGameOver() {
     // set areAllCardsFlipped to true if 16 instances are found
     // meaning all cards are matched
     if (showClassCounter === 16) areAllCardsFlipped = true;  
+}
+
+function displayFinalScore(num){
+    // TO DO: write code that displays final score
+    console.log(num);
 }
