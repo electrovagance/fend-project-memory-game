@@ -130,7 +130,6 @@ function addToOpenCards(card) {
 
         starRating(counter);
         
-        // TODO: implementing card game for them all cards match
         isGameOver();  
         if (areAllCardsFlipped) displayFinalScore(counter);
     }
@@ -161,7 +160,7 @@ function isGameOver() {
 }
 
 function displayFinalScore(num) {
-    // TO DO: write code that displays final score
+    document.getElementsByClassName('game-result');
 }
 
 const stars = document.querySelector(".stars");
