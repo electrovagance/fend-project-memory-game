@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-const list = document.getElementsByClassName('card');
+const listOfCards = document.getElementsByClassName('card');
 
 /*
  * Display the cards on the page
@@ -37,6 +37,22 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
- list.addEventListener('click', function(e){
-     console.log('click!');
- })
+// selects the deck
+ const deck = document.querySelector('.deck');
+
+ // add an eventListener to the deck
+deck.addEventListener('click', function(event) {
+
+    // checks if the sibling of deck was clicked (cards) or else do nothing
+    if (event.target.nodeName === 'LI'){
+        // function call 
+        displayCardSymbol(event.target);
+
+    }
+
+})
+
+function displayCardSymbol(card){
+    card.classList.toggle('show');
+
+}
