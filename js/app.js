@@ -54,9 +54,12 @@ deck.addEventListener('click', function(event) {
 
 function displayCardSymbol(card) {
     card.classList.toggle('show');
-
 }
 
+// set counter to zero
+let counter = 0;
+const counterDisplay = document.querySelector(".moves");
+counterDisplay.innerText = counter;
 
 // create array to hold cards
 let openCards = [];
@@ -69,6 +72,10 @@ function addToOpenCards(card) {
 
     // start comparing the two cards once two cards have been added to the array
     if (openCards.length == 2){
+        // change counter
+        counter++;
+        counterDisplay.innerText = counter;
+
         card1 = openCards[0];
         card2 = openCards[1];
 
@@ -91,7 +98,9 @@ function addToOpenCards(card) {
         }
 
         // TODO: implementing card game for them all cards match
-        else (console.log("finished game!"))
+        else {
+            console.log("finished game!");
+        }
     }
 
 }
