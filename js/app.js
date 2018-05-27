@@ -59,7 +59,7 @@ function displayCardSymbol(card) {
 // set counter to zero
 let counter = 0;
 const counterDisplay = document.querySelector(".moves");
-counterDisplay.innerText = counter;
+counterDisplay.innerText = counter + " Moves";
 
 // create array to hold cards
 let openCards = [];
@@ -83,7 +83,8 @@ function addToOpenCards(card) {
 
         // check if the card classes match, if they do call function that lock cards
         if (card1.firstElementChild.classList[1] === card2.firstElementChild.classList[1]) {
-            matchedCards(card1, card2);
+            matchedCard(card1);
+            matchedCard(card2);
             openCards.splice(0, 2);
         }
 
@@ -108,23 +109,17 @@ function addToOpenCards(card) {
 
 }
 
-// function that lock two matched cards
-function matchedCards(card1, card2) {
-    console.log("Matched two cards!");
-    card1.classList.toggle("match");
-    card2.classList.toggle("match");
-}
-
 function incrementCounter() {
     counter++;
-    counterDisplay.innerText = counter;
+    if (counter == 1) counterDisplay.innerText = counter + " Move";
+    else counterDisplay.innerText = counter + " Moves";
 }
 
 // checks if all cards are flipped meaning game is over
 function isGameOver() {
     // counter 
     let showClassCounter = 0;
-
+    
     // iterate over listOfCards to check if all cards are matched (should add up to 16)
     for (const card of listOfCards) {
         if (card.classList.contains("match")) {
@@ -137,21 +132,47 @@ function isGameOver() {
     if (showClassCounter === 16) areAllCardsFlipped = true;  
 }
 
-function displayFinalScore(num){
+function displayFinalScore(num) {
     // TO DO: write code that displays final score
-    console.log(num);
 }
 
 const stars = document.getElementsByClassName("fa-star");
 
-function starRating(num){
+function starRating(num) {
     // TO DO: implement rating
     // 10 tries == three stars
     // 13 tries == two stars
     // 14 or more tries == one star
     if (num == 10  || num == 13) { 
-        console.log(stars);
         stars[0].remove();
     }
 
+}
+
+// // get restart button, adds event listener
+// // if restart button is clicked, call function restartGame to restart
+// const restart = document.querySelector(".restart");
+
+// // variable that holds all the matched cards
+// let holdMatchedCardsForReset;
+
+// restart.addEventListener("click", function () {
+//     holdMatchedCardsForReset = deck.getElementsByClassName("match");
+//     if (holdMatchedCardsForReset.length > 1) resetGame();
+// })
+
+// function resetGame() {
+//     let numOfMatches = holdMatchedCardsForReset.length;
+//     console.log(numOfMatches);
+//     for (let i = numOfMatches; i >= 0; i--) {
+
+//         matchedCard(holdMatchedCardsForReset[i]);
+//         // console.log(holdMatchedCardsForReset[i].classList);
+//         // displayCardSymbol(holdMatchedCardsForReset[i]);
+//     }
+// }
+
+// function that lock two matched cards
+function matchedCard(card) {
+    card.classList.toggle("match");
 }
