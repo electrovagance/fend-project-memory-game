@@ -60,20 +60,38 @@ function displayCardSymbol(card) {
 
 // create array to hold cards
 let openCards = [];
+let card1, card2;
 
 // function which adds two cards to openCards array for comparison
 function addToOpenCards(card) {
-    var card1, card2;
     // add passed card to openCards array
     openCards.push(card);
 
+    // start comparing the two cards once two cards have been added to the array
     if (openCards.length == 2){
         card1 = openCards[0];
         card2 = openCards[1];
+
         // check if the card classes match, if they do call function that lock cards
-        if (card1.classList[1].firstElementChild === card2.classList[1].firstElementChild) {
+        if (card1.firstElementChild.classList[1] === card2.firstElementChild.classList[1]) {
             matchedCards(card1, card2);
+            openCards.splice(0, 2);
         }
+
+        // if cards don't match, reset the styles and remove the list for next try
+        else if (card1.firstElementChild.classList[1] !== card2.firstElementChild.classList[1]) {
+            // delay turning cards if they don't match and return to "not-show" state
+            setTimeout(function delayReset() {
+                console.log("don't match!");
+                displayCardSymbol(card1);
+                displayCardSymbol(card2);
+                openCards.splice(0, 2);
+
+            }, 800);
+        }
+
+        // TODO: implementing card game for them all cards match
+        else (console.log("finished game!"))
     }
 
 }
