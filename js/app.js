@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-const listOfCards = document.getElementsByClassName('card');
+const listOfCards = document.getElementsByClassName("card");
 
 /*
  * Display the cards on the page
@@ -38,13 +38,13 @@ function shuffle(array) {
  */
 
 // selects the deck
- const deck = document.querySelector('.deck');
+ const deck = document.querySelector(".deck");
 
  // add an eventListener to the deck
-deck.addEventListener('click', function(event) {
+deck.addEventListener("click", function(event) {
 
     // checks if the sibling of deck was clicked (cards) or else do nothing
-    if (event.target.nodeName === 'LI') {
+    if (event.target.nodeName === "LI") {
         // function call 
         displayCardSymbol(event.target);
         addToOpenCards(event.target);
@@ -53,7 +53,7 @@ deck.addEventListener('click', function(event) {
 })
 
 function displayCardSymbol(card) {
-    card.classList.toggle('show');
+    card.classList.toggle("show");
 }
 
 // set counter to zero
@@ -74,7 +74,7 @@ function addToOpenCards(card) {
     openCards.push(card);
 
     // start comparing the two cards once two cards have been added to the array
-    if (openCards.length == 2){
+    if (openCards.length == 2) {
         // change counter
         incrementCounter();
 
@@ -108,25 +108,25 @@ function addToOpenCards(card) {
 
 // function that lock two matched cards
 function matchedCards(card1, card2) {
-    console.log('Matched two cards!');
-    card1.classList.toggle('match');
-    card2.classList.toggle('match');
+    console.log("Matched two cards!");
+    card1.classList.toggle("match");
+    card2.classList.toggle("match");
 }
 
-function incrementCounter(){
+function incrementCounter() {
     counter++;
     counterDisplay.innerText = counter;
 }
 
 // checks if all cards are flipped meaning game is over
-function isGameOver(){
+function isGameOver() {
     // counter 
     let showClassCounter = 0;
 
     // iterate over listOfCards to check if all cards are matched (should add up to 16)
-    for (const card of listOfCards){
-        if (card.classList.contains('match')) {
-            console.log(card.classList.contains('match'));
+    for (const card of listOfCards) {
+        if (card.classList.contains("match")) {
+            console.log(card.classList.contains("match"));
             showClassCounter++;
         }
     }
