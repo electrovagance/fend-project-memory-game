@@ -24,12 +24,10 @@ function shuffleCards() {
     shuffle(cardArray);
 
     // removes old class and replaces with new shuffled class
-    for (let i = 0; i < cardArray.length; i++){
+    for (let i = 0; i < cardArray.length; i++) {
         listOfCards[i].childNodes[1].classList.add(cardArray[i]);
     }
-
 }
-
 
 /*
  * Display the cards on the page
@@ -49,11 +47,8 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
-
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -70,14 +65,11 @@ function shuffle(array) {
 
  // add an eventListener to the deck
 deck.addEventListener("click", function(event) {
-
     // checks if the sibling of deck was clicked (cards) or else do nothing
     if (event.target.nodeName === "LI") {
-        // function call 
         displayCardSymbol(event.target);
         addToOpenCards(event.target);
     }
-
 })
 
 function displayCardSymbol(card) {
@@ -100,15 +92,12 @@ let areAllCardsFlipped = false;
 function addToOpenCards(card) {
     // add passed card to openCards array
     openCards.push(card);
-
     // start comparing the two cards once two cards have been added to the array
     if (openCards.length == 2) {
         // change counter
         incrementCounter();
-
         card1 = openCards[0];
         card2 = openCards[1];
-
         // check if the card classes match, if they do call function that lock cards
         if (card1.firstElementChild.classList[1] === card2.firstElementChild.classList[1]) {
             matchedCard(card1);
@@ -123,16 +112,12 @@ function addToOpenCards(card) {
                 displayCardSymbol(card1);
                 displayCardSymbol(card2);
                 openCards.splice(0, 2);
-
-            }, 800);
+            }, 500);
         }
-
         starRating(counter);
-        
         isGameOver();  
         if (areAllCardsFlipped === true) displayFinalScore();
     }
-
 }
 
 function incrementCounter() {
@@ -152,7 +137,6 @@ function isGameOver() {
             showClassCounter++;
         }
     }
-
     // set areAllCardsFlipped to true if 16 instances are found
     // meaning all cards are matched
     if (showClassCounter === 16) areAllCardsFlipped = true;  
@@ -166,9 +150,7 @@ function displayFinalScore(num) {
     winningMessage.innerHTML = " ";
     winningMessage.innerHTML = "<p>With " + counter + " moves and " + stars.children.length + " star(s). Can you do better?</p>";
     winMessage.append(winningMessage);
-
     winDisplay.classList.toggle("hidden");
-
 }
 
 let resetButton = document.getElementById("reset-button");
@@ -213,7 +195,6 @@ function resetCounter() {
     }
     counter = 0;
     counterDisplay.innerText = counter + " Moves";
-
 }
 
 // function that lock two matched cards
