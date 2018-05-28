@@ -65,7 +65,7 @@ function shuffle(array) {
 
 // event listener that fires once the deck has been clicked for counting elapsed time
 deck.addEventListener("click", function() {
-    timerFunction(true);
+    startCounting();
 });
 // }, {once: true});
 
@@ -200,51 +200,50 @@ function matchedCard(card) {
     card.classList.toggle("match");
 }
 
-function timerFunction(bool) {
-    const timeFragment = document.createDocumentFragment();
-    let timer = document.getElementById("timer");
-    let timeHolder = document.querySelector(".time");
+// const timeFragment = document.createDocumentFragment();
+// let timer = document.getElementById("timer");
+// let timeHolder = document.querySelector(".time");
 
-    timeHolder.innerText = "";
-    let seconds = 0;
-    let interval = setInterval(startCounting, 1000);
+// timeHolder.innerText = "";
+// let seconds = 0;
+// let interval = setInterval(startCounting, 1000);
+// let firstTime = true;
 
-    while (timeHolder.firstChild) {
-        timeHolder.removeChild(timeHolder.firstChild);
-    }
+// function startCounting() {
+//     if (firstTime == true) {
+//         seconds++;
+//         timeHolder.innerText = seconds + " sec elapsed";
+//         timer.appendChild(timeFragment);
+//         console.log(seconds);
+//     }
+//     else {
+//         interval = setInterval(func, 1000);
+//             console.log(interval);
+//         }, 1000);
 
-    if (bool == true) startCounting();
-    else myStopFunction();
+//     }
+// }
 
-    function startCounting() {
-        seconds++;
-        timeHolder.innerText = seconds + " sec elapsed";
-        timer.appendChild(timeFragment);
-    }
+// function myStopFunction() {
+//     clearInterval(interval);
+//     timer.innerHTML = " ";
+//     let timePara = document.createElement("p");
+//     timePara.classList.add("time");
+//     timer.appendChild(timePara);
+//     timeHolder = timePara;
+//     seconds = 0;
+// }
 
-    function myStopFunction() {
-        clearInterval(interval);
-    }
-}
 
 let repeatButton = document.getElementById("restart");
 let resetButton = document.getElementById("reset-button");
 
 repeatButton.addEventListener("click", function (e) {
-    timerFunction(false);
+    myStopFunction();
     resetCounter();
-    resetCards();
-    deck.addEventListener("click", function () {
-        timerFunction(true);
-    }, {once: true});
 })
 
 resetButton.addEventListener("click", function (e) {
-    timerFunction(false);
     resetCounter();
     resetCards();
-    winDisplay.classList.toggle("hidden");
-    deck.addEventListener("click", function () {
-        timerFunction(true);
-    }, {once: true});
 })
