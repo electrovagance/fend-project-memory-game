@@ -63,6 +63,24 @@ function shuffle(array) {
 // selects the deck
  const deck = document.querySelector(".deck");
 
+ // set timer to true on first card click
+let didGameStart = false;
+
+let timer = document.getElementById("timer");
+let timeHolder = document.querySelector('.time');
+
+// event listener that fires once the deck has been clicked for counting elapsed time
+deck.addEventListener("click", function() {
+    const timeFragment = document.createDocumentFragment();
+    let seconds = 0;
+    setInterval(function () {
+        seconds++;
+        timeHolder.innerText = seconds + " sec elapsed";
+    }, 1000);
+    timer.appendChild(timeFragment);
+}, {once: true});
+
+
  // add an eventListener to the deck
 deck.addEventListener("click", function(event) {
     // checks if the sibling of deck was clicked (cards) or else do nothing
@@ -112,7 +130,7 @@ function addToOpenCards(card) {
                 displayCardSymbol(card1);
                 displayCardSymbol(card2);
                 openCards.splice(0, 2);
-            }, 500);
+            }, 400);
         }
         starRating(counter);
         isGameOver();  
@@ -159,6 +177,17 @@ resetButton.addEventListener("click", function (e) {
     resetCounter();
     resetCards();
     winDisplay.classList.toggle("hidden");
+
+    // adds the eventlistener that fires once one of the card has been clicked for time elapsed counter
+    deck.addEventListener("click", function () {
+        const timeFragment = document.createDocumentFragment();
+        let seconds = 0;
+        setInterval(function () {
+            seconds++;
+            timeHolder.innerText = seconds + " sec elapsed";
+        }, 1000);
+        timer.appendChild(timeFragment);
+    }, { once: true });
 })
 
 const stars = document.querySelector(".stars");
@@ -183,14 +212,13 @@ function resetCards() {
 }
 
 function resetCounter() {
-    const addStar = document.createElement('li');
-    console.log(stars.children.length);
+    const addStar = document.createElement("li");
     if (stars.children.length === 1) {
-        addStar.innerHTML = '<i class="fa fa-star"></i><i class="fa fa-star"></i>';
+        addStar.innerHTML = "<i class='fa fa-star'></i><i class='fa fa-star'></i>";
         stars.appendChild(addStar);
     }
     else if (stars.children.length === 2) {
-        addStar.innerHTML = '<i class="fa fa-star"></i>';
+        addStar.innerHTML = "<i class='fa fa-star'></i>";
         stars.appendChild(addStar);
     }
     counter = 0;

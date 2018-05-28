@@ -108,6 +108,15 @@ h1 {
     cursor: pointer;
 }
 
+.score-panel #timer {
+    padding: 0 30px;
+    float: right;
+}
+
+.score-panel p {
+    margin: 0;
+}
+
 /* 
 *   Styles for Result Panel
 */
