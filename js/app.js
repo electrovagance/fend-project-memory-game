@@ -63,22 +63,11 @@ function shuffle(array) {
 // selects the deck
  const deck = document.querySelector(".deck");
 
- // set timer to true on first card click
-let didGameStart = false;
-
-let timer = document.getElementById("timer");
-let timeHolder = document.querySelector('.time');
-
 // event listener that fires once the deck has been clicked for counting elapsed time
 deck.addEventListener("click", function() {
-    const timeFragment = document.createDocumentFragment();
-    let seconds = 0;
-    setInterval(function () {
-        seconds++;
-        timeHolder.innerText = seconds + " sec elapsed";
-    }, 1000);
-    timer.appendChild(timeFragment);
-}, {once: true});
+    timerFunction(true);
+});
+// }, {once: true});
 
 
  // add an eventListener to the deck
@@ -171,25 +160,6 @@ function displayFinalScore(num) {
     winDisplay.classList.toggle("hidden");
 }
 
-let resetButton = document.getElementById("reset-button");
-
-resetButton.addEventListener("click", function (e) {
-    resetCounter();
-    resetCards();
-    winDisplay.classList.toggle("hidden");
-
-    // adds the eventlistener that fires once one of the card has been clicked for time elapsed counter
-    deck.addEventListener("click", function () {
-        const timeFragment = document.createDocumentFragment();
-        let seconds = 0;
-        setInterval(function () {
-            seconds++;
-            timeHolder.innerText = seconds + " sec elapsed";
-        }, 1000);
-        timer.appendChild(timeFragment);
-    }, { once: true });
-})
-
 const stars = document.querySelector(".stars");
 
 function starRating(num) {
@@ -229,3 +199,52 @@ function resetCounter() {
 function matchedCard(card) {
     card.classList.toggle("match");
 }
+
+function timerFunction(bool) {
+    const timeFragment = document.createDocumentFragment();
+    let timer = document.getElementById("timer");
+    let timeHolder = document.querySelector(".time");
+
+    timeHolder.innerText = "";
+    let seconds = 0;
+    let interval = setInterval(startCounting, 1000);
+
+    while (timeHolder.firstChild) {
+        timeHolder.removeChild(timeHolder.firstChild);
+    }
+
+    if (bool == true) startCounting();
+    else myStopFunction();
+
+    function startCounting() {
+        seconds++;
+        timeHolder.innerText = seconds + " sec elapsed";
+        timer.appendChild(timeFragment);
+    }
+
+    function myStopFunction() {
+        clearInterval(interval);
+    }
+}
+
+let repeatButton = document.getElementById("restart");
+let resetButton = document.getElementById("reset-button");
+
+repeatButton.addEventListener("click", function (e) {
+    timerFunction(false);
+    resetCounter();
+    resetCards();
+    deck.addEventListener("click", function () {
+        timerFunction(true);
+    }, {once: true});
+})
+
+resetButton.addEventListener("click", function (e) {
+    timerFunction(false);
+    resetCounter();
+    resetCards();
+    winDisplay.classList.toggle("hidden");
+    deck.addEventListener("click", function () {
+        timerFunction(true);
+    }, {once: true});
+})
