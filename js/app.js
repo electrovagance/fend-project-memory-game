@@ -186,7 +186,7 @@ function starRating(num) {
     // 10 tries == three stars
     // 13 tries == two stars
     // 14 or more tries == one star
-    if (num == 10  || num == 13) { 
+    if (num == 12  || num == 18) { 
         stars.firstElementChild.remove();
     }
 }
@@ -202,11 +202,13 @@ function resetCards() {
 
 function resetCounter() {
     const addStar = document.createElement('li');
-    addStar.innerHTML = '<i class="fa fa-star"></i>';
+    console.log(stars.children.length);
     if (stars.children.length === 1) {
-        for (let i = 0; i < 2; i++) stars.appendChild(addStar);
+        addStar.innerHTML = '<i class="fa fa-star"></i><i class="fa fa-star"></i>';
+        stars.appendChild(addStar);
     }
     else if (stars.children.length === 2) {
+        addStar.innerHTML = '<i class="fa fa-star"></i>';
         stars.appendChild(addStar);
     }
     counter = 0;
