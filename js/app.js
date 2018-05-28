@@ -182,6 +182,7 @@ function resetCards() {
     for (let i = 0; i < listOfCards.length; i++) {
         if (listOfCards[i].classList.contains("show")) displayCardSymbol (listOfCards[i]);
     }
+    shuffleCards();
 }
 
 function resetCounter() {
@@ -203,46 +204,15 @@ function matchedCard(card) {
     card.classList.toggle("match");
 }
 
-// const timeFragment = document.createDocumentFragment();
-// let timer = document.getElementById("timer");
-// let timeHolder = document.querySelector(".time");
 
-// timeHolder.innerText = "";
-// let seconds = 0;
-// let interval = setInterval(startCounting, 1000);
-// let firstTime = true;
-
-// function startCounting() {
-//     if (firstTime == true) {
-//         seconds++;
-//         timeHolder.innerText = seconds + " sec elapsed";
-//         timer.appendChild(timeFragment);
-//         console.log(seconds);
-//     }
-//     else {
-//         interval = setInterval(func, 1000);
-//             console.log(interval);
-//         }, 1000);
-
-//     }
-// }
-
-// function myStopFunction() {
-//     clearInterval(interval);
-//     timer.innerHTML = " ";
-//     let timePara = document.createElement("p");
-//     timePara.classList.add("time");
-//     timer.appendChild(timePara);
-//     timeHolder = timePara;
-//     seconds = 0;
-// }
-
-// credits to:
+// credits to this person for the timer function
 // https://stackoverflow.com/a/34748056
 
 var timerVar;
-function startTimer(){
+let timeDisplay = document.getElementById("timer");
+timeDisplay.innerHTML = "0:0:0";
 
+function startTimer(){
     timerVar = setInterval(countTimer, 1000);
     let totalSeconds = 0;
 
@@ -252,26 +222,28 @@ function startTimer(){
         let minute = Math.floor((totalSeconds - hour * 3600) / 60);
         let seconds = totalSeconds - (hour * 3600 + minute * 60);
 
-        document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+        timeDisplay.innerHTML = hour + ":" + minute + ":" + seconds;
     }
 }
-
 
 let restartButton = document.getElementById("restart");
 let resetButton = document.getElementById("reset-button");
 
+// event listener for restarting the game once game is won
 restartButton.addEventListener("click", function() {
     resetCounter();
     resetCards();
     clearInterval(timerVar);
-    document.getElementById("timer").innerHTML = " ";
+    timeDisplay.innerHTML = "0:0:0";
     timer();
+    winDisplay.classList.remove("hidden");
 })
 
+// event listener for restarting the game mid-game
 resetButton.addEventListener("click", function() {
     resetCounter();
     resetCards();
     clearInterval(timerVar);
-    document.getElementById("timer").innerHTML = " ";
+    timeDisplay.innerHTML = "0:0:0";
     timer();
 })
