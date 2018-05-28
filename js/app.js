@@ -161,15 +161,23 @@ function isGameOver() {
 const winDisplay = document.querySelector(".final-result-display");
 const winMessage = document.querySelector(".win-message");
 
-function displayFinalScore(num) {
+function displayFinalScore(num) {  
     let winningMessage = document.createElement("p");
     winningMessage.innerHTML = " ";
-    winningMessage.innerHTML = "<p>With " + counter + " moves and " + stars.children.length + "star(s). Can you do better?</p>";
+    winningMessage.innerHTML = "<p>With " + counter + " moves and " + stars.children.length + " star(s). Can you do better?</p>";
     winMessage.append(winningMessage);
 
-    winDisplay.classList.toggle('hidden');
+    winDisplay.classList.toggle("hidden");
 
 }
+
+let resetButton = document.getElementById("reset-button");
+
+resetButton.addEventListener("click", function (e) {
+    resetCounter();
+    resetCards();
+    winDisplay.classList.toggle("hidden");
+})
 
 const stars = document.querySelector(".stars");
 
@@ -182,15 +190,6 @@ function starRating(num) {
         stars.firstElementChild.remove();
     }
 }
-
-// get restart button, adds event listener
-// if restart button is clicked, call function restartGame to restart
-const restart = document.querySelector(".restart");
-
-restart.addEventListener("click", function () {
-    resetCards();
-    resetCounter();
-})
 
 function resetCards() {
     for (let i = 0; i < listOfCards.length; i++){
@@ -211,7 +210,7 @@ function resetCounter() {
         stars.appendChild(addStar);
     }
     counter = 0;
-    counterDisplay.innerText = counter + " Moves"
+    counterDisplay.innerText = counter + " Moves";
 
 }
 
