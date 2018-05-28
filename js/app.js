@@ -71,8 +71,6 @@ function timer(){
     }, { once: true });
 }
 
-
-
  // add an eventListener to the deck
 deck.addEventListener("click", function(event) {
     // checks if the sibling of deck was clicked (cards) or else do nothing
@@ -137,17 +135,15 @@ function incrementCounter() {
 }
 
 // checks if all cards are flipped meaning game is over
-function isGameOver() {
-    // counter 
-    let showClassCounter = 0;
-    
+let showClassCounter;
+function isGameOver() { 
     // iterate over listOfCards to check if all cards are matched (should add up to 16)
+    showClassCounter = 0;
     for (const card of listOfCards) {
-        if (card.classList.contains("match")) {
+        if (card.classList.contains("match", "show")) {
             showClassCounter++;
         }
     }
-    // set areAllCardsFlipped to true if 16 instances are found
     // meaning all cards are matched
     if (showClassCounter === 16) areAllCardsFlipped = true;  
 }
@@ -156,11 +152,9 @@ const winDisplay = document.querySelector(".final-result-display");
 const winMessage = document.querySelector(".win-message");
 
 function displayFinalScore(num) {  
-    let winningMessage = document.createElement("p");
-    winningMessage.innerHTML = " ";
-    winningMessage.innerHTML = "<p>With " + counter + " moves and " + stars.children.length + " star(s). Can you do better?</p>";
-    winMessage.append(winningMessage);
-    winDisplay.classList.toggle("hidden");
+    winMessage.innerHTML = " ";
+    winMessage.innerHTML = "<p>With " + counter + " moves and " + stars.children.length + " star(s). Can you do better?</p>";
+    winDisplay.classList.remove("hidden");
 }
 
 const stars = document.querySelector(".stars");
@@ -186,14 +180,17 @@ function resetCards() {
 }
 
 function resetCounter() {
-    const addStar = document.createElement("li");
+    let star1, star2;
+    star1 = document.createElement("i");
+    star2 = document.createElement("i");
+    star1.classList.add("fa", "fa-star");
+    star2.classList.add("fa", "fa-star");
     if (stars.children.length === 1) {
-        addStar.innerHTML = "<i class='fa fa-star'></i><i class='fa fa-star'></i>";
-        stars.appendChild(addStar);
+        stars.appendChild(star1);
+        stars.appendChild(star2);
     }
     else if (stars.children.length === 2) {
-        addStar.innerHTML = "<i class='fa fa-star'></i>";
-        stars.appendChild(addStar);
+        stars.appendChild(star1);
     }
     counter = 0;
     counterDisplay.innerText = counter + " Moves";
@@ -236,7 +233,6 @@ restartButton.addEventListener("click", function() {
     clearInterval(timerVar);
     timeDisplay.innerHTML = "0:0:0";
     timer();
-    winDisplay.classList.remove("hidden");
 })
 
 // event listener for restarting the game mid-game
@@ -246,4 +242,7 @@ resetButton.addEventListener("click", function() {
     clearInterval(timerVar);
     timeDisplay.innerHTML = "0:0:0";
     timer();
+    showClassCounter = 0;
+    areAllCardsFlipped = false;
+    winDisplay.classList.add("hidden");
 })
