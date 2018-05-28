@@ -118,7 +118,6 @@ function addToOpenCards(card) {
 
         // if cards don't match, reset the styles and remove the list for next try
         else if (card1.firstElementChild.classList[1] !== card2.firstElementChild.classList[1]) {
-            console.log("don't match!");
             // delay turning cards if they don't match and return to "not-show" state
             setTimeout(function delayReset() {
                 displayCardSymbol(card1);
@@ -131,7 +130,7 @@ function addToOpenCards(card) {
         starRating(counter);
         
         isGameOver();  
-        if (areAllCardsFlipped) displayFinalScore(counter);
+        if (areAllCardsFlipped === true) displayFinalScore();
     }
 
 }
@@ -159,8 +158,17 @@ function isGameOver() {
     if (showClassCounter === 16) areAllCardsFlipped = true;  
 }
 
+const winDisplay = document.querySelector(".final-result-display");
+const winMessage = document.querySelector(".win-message");
+
 function displayFinalScore(num) {
-    document.getElementsByClassName('game-result');
+    let winningMessage = document.createElement("p");
+    winningMessage.innerHTML = " ";
+    winningMessage.innerHTML = "<p>With " + counter + " moves and " + stars.children.length + "star(s). Can you do better?</p>";
+    winMessage.append(winningMessage);
+
+    winDisplay.classList.toggle('hidden');
+
 }
 
 const stars = document.querySelector(".stars");
@@ -171,9 +179,8 @@ function starRating(num) {
     // 13 tries == two stars
     // 14 or more tries == one star
     if (num == 10  || num == 13) { 
-        stars.firstElementChild.remove()
+        stars.firstElementChild.remove();
     }
-
 }
 
 // get restart button, adds event listener
