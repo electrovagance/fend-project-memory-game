@@ -64,10 +64,13 @@ function shuffle(array) {
  const deck = document.querySelector(".deck");
 
 // event listener that fires once the deck has been clicked for counting elapsed time
-deck.addEventListener("click", function() {
-    startCounting();
-});
-// }, {once: true});
+timer();
+function timer(){
+    deck.addEventListener("click", function () {
+        startTimer();
+    }, { once: true });
+}
+
 
 
  // add an eventListener to the deck
@@ -234,16 +237,41 @@ function matchedCard(card) {
 //     seconds = 0;
 // }
 
+// credits to:
+// https://stackoverflow.com/a/34748056
 
-let repeatButton = document.getElementById("restart");
+var timerVar;
+function startTimer(){
+
+    timerVar = setInterval(countTimer, 1000);
+    let totalSeconds = 0;
+
+    function countTimer() {
+        ++totalSeconds;
+        let hour = Math.floor(totalSeconds / 3600);
+        let minute = Math.floor((totalSeconds - hour * 3600) / 60);
+        let seconds = totalSeconds - (hour * 3600 + minute * 60);
+
+        document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+    }
+}
+
+
+let restartButton = document.getElementById("restart");
 let resetButton = document.getElementById("reset-button");
 
-repeatButton.addEventListener("click", function (e) {
-    myStopFunction();
-    resetCounter();
-})
-
-resetButton.addEventListener("click", function (e) {
+restartButton.addEventListener("click", function() {
     resetCounter();
     resetCards();
+    clearInterval(timerVar);
+    document.getElementById("timer").innerHTML = " ";
+    timer();
+})
+
+resetButton.addEventListener("click", function() {
+    resetCounter();
+    resetCards();
+    clearInterval(timerVar);
+    document.getElementById("timer").innerHTML = " ";
+    timer();
 })
